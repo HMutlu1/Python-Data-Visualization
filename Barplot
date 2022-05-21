@@ -1,0 +1,129 @@
+import seaborn as sns 
+planets = sns.load_dataset("planets")
+planets.head()
+df = planets.copy()
+df.head()
+df.tail()
+df.info()
+df.dtypes
+import pandas as pd 
+df.method = pd.Categorical(df.method)
+df.dtypes
+df.head()
+
+
+## Description of the Data Set
+import seaborn as sns 
+planets = sns.load_dataset("planets")
+df = planets.copy()
+df.head()
+df.shape
+df.columns
+df.describe().T
+df.describe(include = "all").T
+
+
+## Examining Missing Values
+import seaborn as sns 
+planets = sns.load_dataset("planets")
+df = planets.copy()
+df.head()
+
+# Are there any missing observations(values)?
+df.isnull().values.any()
+
+# How many in which variable
+df.isnull().sum()
+df["orbital_period"].fillna(0, inplace = True)
+df.isnull().sum()
+df["mass"].fillna(df.mass.mean(), inplace = True)
+df.isnull().sum()
+df.fillna(df.mean(), inplace = True)
+df.isnull().sum()
+df = planets.copy()
+df.head()
+df.isnull().sum()
+
+
+## Categorical Variable Summaries
+import seaborn as sns 
+planets = sns.load_dataset("planets")
+df = planets.copy()
+df.head()
+
+# Categorical Variables Only and Their Summaries
+kat_df = df.select_dtypes(include = ["object"])
+kat_df.head(5)
+
+
+# Accessing Classes and Number of Classes of Categorical Variable
+kat_df.method.unique()
+kat_df["method"].value_counts().count()
+
+
+# Accessing the Frequencies of the Classes of a Categorical Variable
+kat_df["method"].value_counts()
+df["method"].value_counts().plot.barh();
+
+
+## Continuous Variable Summaries
+import seaborn as sns 
+planets = sns.load_dataset("planets")
+df = planets.copy()
+df.head()
+df_num = df.select_dtypes(include = ["float64", "int64"])
+df_num.head()
+df_num.describe().T
+df_num["distance"].describe()
+print("Mean: " + str(df_num["distance"].mean()))
+print("Number of Hail Observations: " + str(df_num["distance"].count())) 
+print("Maximum Value: " + str(df_num["distance"].max()))
+print("Minimum Value: " + str(df_num["distance"].min()))
+print("Median: " + str(df_num["distance"].median()))
+print("Standard Deviation: " + str(df_num["distance"].std()))
+
+
+
+## Scatter Charts
+import seaborn as sns
+diamonds = sns.load_dataset('diamonds')
+df = diamonds.copy()
+df.head()
+df.info()
+df.describe().T
+df["cut"].value_counts()
+df["color"].value_counts()
+from pandas.api.types import CategoricalDtype
+df.cut.head()
+df.cut = df.cut.astype(CategoricalDtype(ordered = True))
+df.dtypes
+df.cut.head(1)
+cut_kategoriler = ["Fair","Good","Very Good","Premium","Ideal"]
+df.cut.head(1)
+
+#barplot
+df["cut"].value_counts().plot.barh().set_title("Cut Değişkeninin Sınıf Frekansları");
+(df["cut"]
+ .value_counts()
+ .plot.barh()
+ .set_title("Cut Değişkeninin Sınıf Frekansları"));
+
+sns.barplot(x = "cut", y = df.cut.index, data= df);
+
+
+
+# Crossovers
+
+import seaborn as sns
+from pandas.api.types import CategoricalDtype
+diamonds = sns.load_dataset('diamonds')
+df = diamonds.copy()
+cut_kategoriler = ["Fair","Good","Very Good","Premium","Ideal"]
+df.cut = df.cut.astype(CategoricalDtype(categories = cut_kategoriler, ordered = True))
+df.head()
+
+sns.catplot(x = "cut", y = "price", data = df);
+
+sns.barplot(x = "cut", y = "price", hue = "color", data = df);
+
+df.groupby(["cut","color"])["price"].mean()
